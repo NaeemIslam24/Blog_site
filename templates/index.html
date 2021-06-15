@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+   {% for post in posts %}
+   <h2> <a href="{{ post.get_absolute_url }}">{{post.title}}</a> </h2>
+   <p>{{post.publish}} by {{post.author}} </p>
+   <p>{{post.body | truncatewords:30 | linebreaks }}</p>
+
+   {% endfor %}
+   {% include 'paginator.html' with page_obt=posts %}
+ 
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% if page_obt.has_previous %}
+  <a href='?page={{page_obt.previous_page_number}}'> Previous </a>
+{% endif %}
+
+Page {{page_obt.number}} of {{page_obt.paginator.num_pages}}
+
+{% if page_obt.has_next %}
+  <a href='?page={{page_obt.next_page_number}}'> Next </a>
+{% endif %}
+
