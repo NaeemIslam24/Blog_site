@@ -1,6 +1,6 @@
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -66,7 +66,7 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
     }
 }
 
@@ -108,6 +108,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #this will work if i cannt use smtp server like below
+
+EMAIL_HOST = 'smtp.gamil.com' #local host
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'naeemislam13790@gmail.com'
+EMAIL_HOST_PASSWORD = 'django1234' # password
+EMAIL_USE_TLS= True # secure connection
+#EMAIL_USE_SSL
+
 
 
 
