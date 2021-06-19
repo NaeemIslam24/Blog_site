@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from .models import Post
-from .forms import EmailPostForm
+from .models import Post, Comments
+from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 
 def index(request):
@@ -28,8 +28,21 @@ def index(request):
 def single_post(request,number,title):
     template = 'single_post.html'
     post = get_object_or_404(Post,slug = title, id = number)
+    comment = post.comment_here.filter(active=True) # we got post from the up line and comment_here is taken from related_name of Comments model's post object
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
     context = {
-        'post':post
+        'post':post,
+        'comments':comment,
+        'new_comment':new_comment,
+        'comment_form':comment_form,
     }
     return render(request,template_name=template,context=context)
 

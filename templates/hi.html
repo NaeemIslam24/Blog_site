@@ -5,12 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+
+
+<h1></h1>
   {% if sent %}
    <h1> Email sent successfully </h1>
    <p>"{{ post.title }}" was successfully sent to {{ form.cleaned_date.to }}</p>
   {% else %}
     <h1> Share "{{ post.title }}" by email </h1>
     <form method="Post">
+
         {{ form.as_p }}
         {% csrf_token %}
         <input type="submit" value="Send Email">
