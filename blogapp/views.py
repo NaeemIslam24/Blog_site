@@ -3,10 +3,15 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from .models import Post
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from taggit.models import Tag
 
-def index(request):
+def index(request,tag_slug=None):
     template = 'index.html'
     post = Post.objects.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag,slug=tag_slug)
+        post = post.filter(tags__in=[tag])
     paginator = Paginator(post,3)
 
     page = request.GET.get('page')
@@ -20,7 +25,10 @@ def index(request):
 
     context = {
         'page_obt':page,
-        'posts': post}
+        'posts': post,
+        'tag':tag,
+
+    }
 
     return render(request, template_name=template,context=context)
 
