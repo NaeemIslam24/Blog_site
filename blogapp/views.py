@@ -1,6 +1,6 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from .models import Post, Comments
+from .models import Post
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 
@@ -36,6 +36,7 @@ def single_post(request,number,title):
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
             new_comment.save()
+
     else:
         comment_form = CommentForm()
     context = {
@@ -75,11 +76,4 @@ def post_share(request,post_id):
     return render(request,'test.html', context=context)
 
 
-def test(request):
 
-    test = "hello this a test nothing more bro"
-
-    context = {
-       'test': test,
-    }
-    return render(request,'hi.html',context=context)

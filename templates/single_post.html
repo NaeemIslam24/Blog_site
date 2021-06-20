@@ -11,11 +11,11 @@
     <p>{{post.publish}} by {{post.author}}</p>
     <p>{{post.body | linebreaks }}</p>
     <p><a href="{% url 'blogapp:post_share' post.id %}"> Share this post </a></p>
-{% with commets.count as total_comments %}
+
   <h2>
-      {{ total_comments }} comment {{ total_comments|pluralize }}
+       comment
   </h2>
-{% endwith %}
+
 {% for comment in comments %}
 
     <div class="comment">
