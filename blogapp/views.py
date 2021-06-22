@@ -7,13 +7,21 @@ from taggit.models import Tag
 
 def index(request,tag_slug=None):
     template = 'index.html'
-    post = Post.objects.all()
+    post = Post.objects.all() # to call all post
+
+
+
+
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag,slug=tag_slug)
         post = post.filter(tags__in=[tag])
-    paginator = Paginator(post,3)
 
+
+
+
+
+    paginator = Paginator(post,3)
     page = request.GET.get('page')
     try:
         post = paginator.page(page)

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>this is a test bro</h1>
+<form method="POST">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+ <input type="submit">
+
+</form>
+{% if results %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Roll</th>
+      <th scope="col">Age</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+{% for result in results %}
+
+  <tbody>
+    <tr>
+      <th scope="row">{{result.id}}</th>
+      <td>{{result.name}}</td>
+      <td>{{result.roll}}</td>
+      <td>{{result.age}}</td>
+      <td>
+      <form method="POST" action="{% url 'delete' result.id %}">
+         {% csrf_token %}
+          <input type="submit" value="Delete">
+      </form>
+
+      </td>
+    </tr>
+  </tbody>
+
+{% endfor %}
+</table>
+{% endif %}
+
+</body>
+</html>
