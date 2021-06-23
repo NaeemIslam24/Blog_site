@@ -5,18 +5,15 @@ from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from taggit.models import Tag # Tag is build in class of taggit Tag has 2 objects slug and name
 
+
 def index(request,tag_slug=None):
     template = 'index.html'
     post = Post.objects.all() # to call all post
 
-
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag,slug=tag_slug) # Tag has 2 object name and slug. exact slug is brought here
-        post = post.filter(tag_obj__in=[tag]) # now all posts are filtering ever the exact slug
-
-
-
+        post = post.filter(tag_obj__in=[tag]) # now all posts  are filtering ever the exact slug
 
 
     paginator = Paginator(post,3)
