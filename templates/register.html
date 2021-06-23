@@ -12,9 +12,11 @@
 
     {% csrf_token %}
     {{ form.as_p }}
- <input type="submit">
+ <input type="submit" value="Submit">
 
 </form>
+<br/>
+<br/>
 {% if results %}
 <table class="table table-bordered">
   <thead>
@@ -24,6 +26,7 @@
       <th scope="col">Roll</th>
       <th scope="col">Age</th>
       <th scope="col">Delete</th>
+      <th scope="col">Edit</th>
     </tr>
   </thead>
 {% for result in results %}
@@ -35,11 +38,19 @@
       <td>{{result.roll}}</td>
       <td>{{result.age}}</td>
       <td>
-      <form method="POST" action="{% url 'delete' result.id %}">
-         {% csrf_token %}
-          <input type="submit" value="Delete">
-      </form>
+        <form method="POST" action="{% url 'delete' result.id %}">
+           {% csrf_token %}
+            <input type="submit" value="Delete">
 
+        </form>
+      </td>
+
+      <td>
+         <form method="POST" action="{% url 'edit' result.id %}">
+           {% csrf_token %}
+
+           <input type="submit" value="Edit">
+         </form>
       </td>
     </tr>
   </tbody>

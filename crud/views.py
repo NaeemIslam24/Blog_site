@@ -13,7 +13,6 @@ def register(request):
             sform.save()
             return redirect('/register/')
 
-
     context = {
 
         'form': form,
@@ -29,4 +28,19 @@ def delete(request,rm_number):
         data = Register.objects.get(id=rm_number)
         data.delete()
         return redirect('/register/')
+
+def edit(request,data_number):
+
+    template = 'edit.html'
+    data = Register.objects.get(id=data_number)
+    if request.method == 'POST':
+     form = StudentRegister(request.POST,instance=data)
+     if form.is_valid():
+        form.save()
+        return redirect('/register/')
+    context = {
+        'form':form,
+    }
+    return render(request, template_name=template,context=context)
+
 
