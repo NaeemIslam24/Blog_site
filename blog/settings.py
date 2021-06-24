@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'blogapp',
     'taggit',
     'crud',
+    'ckeditor',
+    'ckeditor_uploader',
 
 ]
 
@@ -109,8 +111,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/images/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #this will work if i cannt use smtp server like below
 
 EMAIL_HOST = 'smtp.gamil.com' #local host
@@ -121,6 +134,12 @@ EMAIL_USE_TLS= True # secure connection
 #EMAIL_USE_SSL
 
 
-
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 900,
+    },
+}

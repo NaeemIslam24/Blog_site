@@ -3,14 +3,18 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
 from taggit.managers import TaggableManager
+from ckeditor.fields import RichTextField
+
 
 class Post(models.Model):
     objects = None
     STATUS_CHOICE = (('draft','Draft'),('published','Published'),)
-    title = models.CharField(max_length=200)
+    headline = models.CharField(max_length=200)
+    sub_headline = models.CharField(max_length=200, null=True, blank=True)
+    thumbnail = models.ImageField(null=True, blank=True, upload_to="images")
     slug = models.SlugField(max_length=200, unique_for_date='publish')
     author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog_post')
-    body = models.TextField()
+    body = RichTextField(blank=True,null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10,choices=STATUS_CHOICE, default='draft')
@@ -25,7 +29,7 @@ class Post(models.Model):
     
 
     def __str__(self):
-        return self.title
+        return self.headline
 
 
 

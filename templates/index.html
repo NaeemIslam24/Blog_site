@@ -16,7 +16,7 @@
 
 
    {% for post in posts %}
-   <h2> <a href="{{ post.get_absolute_url }}">{{post.title}}</a> </h2>
+   <h2> <a href="{{ post.get_absolute_url }}">{{post.headline}}</a> </h2>
    <p>{{post.publish}} by {{post.author}} </p>
 
 
@@ -34,7 +34,7 @@
 
 
 
-   <p>{{post.body | truncatewords:30 | linebreaks }}</p>
+   <p>{{post.body | safe | truncatewords:30 | linebreaks }}</p>
 
    {% endfor %}
    {% include 'paginator.html' with page_obt=posts %}

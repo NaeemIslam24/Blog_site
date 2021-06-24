@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Register(models.Model):
 
     objects = None
@@ -8,4 +9,5 @@ class Register(models.Model):
     age = models.IntegerField()
     def __str__(self):
         return self.name
+
 
